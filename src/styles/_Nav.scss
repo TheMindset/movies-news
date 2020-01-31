@@ -1,0 +1,21 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+}
+
+.header-nav {
+  width: 500px;
+  display: flex;
+}
+
+.nav-link {
+  text-decoration: none;
+  width: 125px;
+  color: black;
+}
+
+.selectedLink {
+  animation-duration: 0.5s;
+}

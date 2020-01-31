@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom'
 import { getMovies } from '../../Components/utils/apiCalls'
 import { setMovies } from '../../actions'
 import Main from '../../Components/Main/Main'
+import Nav from '../../Components/Nav/Nav'
 
 class App extends Component {
 
@@ -20,6 +21,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Route path='/' render={ () => <Nav /> } />
         <Route exact path='/' render={ () => <Main /> } />
       </div>
     );
