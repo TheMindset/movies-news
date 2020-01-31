@@ -1,5 +1,5 @@
 export const setMovies = (movies) => ({
-  type: 'GET_MOVIES',
+  type: 'SET_MOVIES',
   movies
 })
 
