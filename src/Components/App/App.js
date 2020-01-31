@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Route } from 'react-router-dom'
 import { getMovies } from '../utils/apiCalls'
 import { setMovies } from '../actions'
-import MovieList from '../MovieList/MovieList'
+import Main from '../Main/Main'
 
 class App extends Component {
 
@@ -20,7 +20,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Route exact path='/' render={ () => <MovieList /> } />
+        <Route exact path='/' render={ () => <Main /> } />
       </div>
     );
   

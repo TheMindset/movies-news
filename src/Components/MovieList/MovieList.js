@@ -7,14 +7,10 @@ const MovieList = ({movies}) => {
   const allMovies = movies.map(movie => <MovieCard movie={movie} key={movie.id} />)
 
   return (
-    <div>
+    <section className='section-movies'>
       {allMovies}
-    </div>
+    </section>
   )
 }
 
-const mapStateToProps = (state) => ({
-  movies: state.movies
-})
-
-export default connect(mapStateToProps)(MovieList)
+export default MovieList
