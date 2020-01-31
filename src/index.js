@@ -5,6 +5,7 @@ import './index.css';
 import './styles/main.scss'
 import App from './Components/App/App';
 import * as serviceWorker from './serviceWorker';
+import { BrowserRouter } from 'react-router-dom'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
@@ -14,7 +15,7 @@ const store = createStore(rootReducer, composeWithDevTools())
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+     <BrowserRouter> <App /> </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 );
