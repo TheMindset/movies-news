@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Route } from 'react-router-dom'
-import { getMovies } from '../utils/apiCalls'
-import { setMovies } from '../actions'
-import Main from '../Main/Main'
+import { getMovies } from '../../Components/utils/apiCalls'
+import { setMovies } from '../../actions'
+import Main from '../../Components/Main/Main'
 
 class App extends Component {
 
