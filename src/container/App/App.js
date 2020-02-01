@@ -5,6 +5,7 @@ import { getMovies } from '../../Components/utils/apiCalls'
 import { setMovies } from '../../actions'
 import Main from '../../Components/Main/Main'
 import Nav from '../../Components/Nav/Nav'
+import Login from '../../Components/Login/Login'
 
 class App extends Component {
 
@@ -21,6 +22,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Route exact path='/login'render={ () => <Login /> } />
         <Route path='/' render={ () => <Nav /> } />
         <Route exact path='/' render={ () => <Main /> } />
       </div>
