@@ -1,18 +1,43 @@
 .movie {
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: center;
-  // height: 45vh;
-  // width: 35vw;
   margin: 10px;
+  background-color: rgb(30, 30, 30);
 }
 
-.movie h2 {
+.card-header {
+  background-color: rgb(30, 30, 30);
   height: 60px;
+  font-size: 1.2em;
+  text-align: center;
+  padding: 5px;
+  vertical-align: middle;
 }
 
 .card-image {
   height: 350px;
-  width: 300px;
+  min-height: 300px;
   max-width: 250px;
+  background-color: rgb(30, 30, 30);
+}
+
+.card-release-date {
+  background-color: rgb(30, 30, 30);
+}
+
+.movie:hover,
+.movie:hover .card-release-date,
+.movie:hover .card-image,
+.movie:hover .card-header {
+  background-color: rgb(0, 0, 0);
+}
+
+.movie:hover {
+  animation-name: movie-micro;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  box-shadow: 0px 0px 8px white;
+}
+
+@keyframes movie-micro {
+  0% { transform: scale(1) }
+  100% {transform: scale(1.03)}
 }
