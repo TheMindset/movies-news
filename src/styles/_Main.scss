@@ -1,7 +1,9 @@
 main {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-around;
-  overflow-x: scroll;
+  padding-top: 50px;
 }
 
+.heading-box-office,
+.heading-upcoming {
+  font-size: 1.5em;
+  margin-bottom: 8px;
+}

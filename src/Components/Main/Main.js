@@ -7,10 +7,10 @@ const Main = ({movies}) => {
 
   return (
     <main>
-      <h1>Box office</h1>
+      <h1 className='heading-box-office'>Box office</h1>
       <MovieList className='box-office' movies={movies}/>
-      {/* <h1>Upcoming Movies</h1> */}
-      {/* <MovieList className='umpcoming-movies' movies={movies}/> */}
+      <h1 className='heading-upcoming'>Upcoming Movies</h1>
+      <MovieList className='upcoming-movies' movies={movies}/>
     </main>
   )
 }
