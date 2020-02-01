@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Route } from 'react-router-dom'
-import { getMovies } from '../../Components/utils/apiCalls'
-import { setMovies } from '../../actions'
+import { getMovies, getUpcomingMovies} from '../../Components/utils/apiCalls'
+import { setMovies, setUpcomingMovies } from '../../actions'
 import Main from '../../Components/Main/Main'
 import Nav from '../../Components/Nav/Nav'
 import Login from '../../Components/Login/Login'
@@ -11,13 +11,21 @@ import MovieList from '../../Components/MovieList/MovieList';
 class App extends Component {
 
   async componentDidMount() {
-    const { setMovies } = this.props
+    const { setMovies, setUpcomingMovies } = this.props
     try {
       const data = await getMovies()
       setMovies(data)
     } catch(error) {
       console.log(error.message)
     }
+
+    try {
+      const data = await getUpcomingMovies()
+      setUpcomingMovies(data)
+    } catch(error) {
+      console.log(error.message)
+    }
+
   }
 
   render() {
@@ -28,7 +36,6 @@ class App extends Component {
         <Route exact path='/' render={ () => <Main /> } />
         <Route exact path='box-office' render={ () => <MovieList /> } />
         <Route exact path='upcoming' render={ () => <MovieList /> } />
-
       </div>
     );
   
@@ -36,11 +43,13 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  movies: state.movies
+  movies: state.movies,
+  upcomingMovies: state.upcomingMovies
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  setMovies: (movies) => dispatch(setMovies(movies))
+  setMovies: (movies) => dispatch(setMovies(movies)),
+  setUpcomingMovies: (upcomingMovies) => dispatch(setUpcomingMovies(upcomingMovies))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

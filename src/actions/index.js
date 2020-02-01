@@ -7,3 +7,8 @@ export const setUser = (user) => ({
   type: 'SET_USER',
   user
 })
+
+export const setUpcomingMovies = (upcomingMovies) => ({
+  type: 'SET_UPCOMING_MOVIES',
+  upcomingMovies
+})
