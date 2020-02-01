@@ -33,10 +33,10 @@ class Login extends Component {
     }
 
     try {
-      const { setNewUser } = this.props
+      const { setUser } = this.props
 
       const newUser = await createNewUser(user)
-      await setNewUser(user)
+      await setUser(newUser)
       this.setState({ isLogged: true })
     } catch(error) {
       this.setState({ loginError: error.message })
