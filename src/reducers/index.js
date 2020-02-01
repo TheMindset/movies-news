@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
 import { moviesReducer } from './moviesReducer'
-import { favoritesReducer } from './favoritesReducer'
+import { newUserReducer } from './newUserReducer'
 
 const rootReducer = combineReducers({
   movies: moviesReducer,
-  favorites: favoritesReducer,
+  user: newUserReducer,
 })
 
 export default rootReducer

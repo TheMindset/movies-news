@@ -3,7 +3,7 @@ export const setMovies = (movies) => ({
   movies
 })
 
-export const setFavorites = (id) => ({
-  type: 'SET_FAVORITES',
-  id
+export const setNewUser = (user) => ({
+  type: 'SET_NEW_USER',
+  user
 })
