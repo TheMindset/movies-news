@@ -25,3 +25,12 @@ export const createNewUser = async (user) => {
   }
   return response.json()
 }
+
+export const getUpcomingMovies = async () => {
+  const url = `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&language=en-US`
+  
+  const response = await fetch(url)
+  const data = await response.json()
+  return data.results
+
+}
