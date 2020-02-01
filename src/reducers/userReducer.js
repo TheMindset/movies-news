@@ -1,6 +1,6 @@
-export const newUserReducer = (state = [], action) => {
+export const userReducer = (state = [], action) => {
   switch (action.type) {
-    case 'SET_NEW_USER':
+    case 'SET_USER':
       return action.user
     default: 
       return state
