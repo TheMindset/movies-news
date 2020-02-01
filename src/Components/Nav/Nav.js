@@ -18,6 +18,9 @@ const Nav = () => {
         <NavLink exact to='/favorites' className='nav-link' activeClassName='selectedLink'>
           Favorites
         </NavLink>
+        <NavLink exact to='/login' className='nav-link' activeClassName='selectedLink'>
+          User Login
+        </NavLink>
       </div>
     </header>
   )
