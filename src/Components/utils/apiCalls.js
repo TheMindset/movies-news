@@ -55,3 +55,12 @@ export const loginUser = async (user) => {
 
   return response.json()
 }
+
+export const getUserFavorites = async (userID) => {
+  const url = `http://localhost:3001/api/v1/users/${userID}/movieFavorites`
+
+  const response = await fetch(url)
+  const data = response.json
+
+  return data.favorites
+}

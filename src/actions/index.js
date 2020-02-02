@@ -12,3 +12,9 @@ export const setUpcomingMovies = (upcomingMovies) => ({
   type: 'SET_UPCOMING_MOVIES',
   upcomingMovies
 })
+
+
+export const setFavorites = (favorites) => ({
+  type: 'SET_FAVORITES',
+  favorites
+})

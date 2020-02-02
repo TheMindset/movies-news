@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Route } from 'react-router-dom'
-import { getMovies, getUpcomingMovies} from '../../Components/utils/apiCalls'
-import { setMovies, setUpcomingMovies } from '../../actions'
+import { getMovies, getUpcomingMovies, getUserFavorites} from '../../Components/utils/apiCalls'
+import { setMovies, setUpcomingMovies, setFavorites } from '../../actions'
 import Main from '../../Components/Main/Main'
 import Nav from '../../Components/Nav/Nav'
-import Login from '../../Components/Login/Login'
+import Login from '../Login/Login'
 import MovieList from '../../Components/MovieList/MovieList';
 
 class App extends Component {
 
   async componentDidMount() {
-    const { setMovies, setUpcomingMovies } = this.props
+    const { setMovies, setUpcomingMovies, setFavorites, user } = this.props
     try {
       const data = await getMovies()
       setMovies(data)
@@ -26,6 +26,14 @@ class App extends Component {
       console.log(error.message)
     }
 
+    if(user.name) {
+      try {
+        const userFavs = await getUserFavorites(user.id)
+        setFavorites(userFavs)
+      } catch(error) {
+        console.log(error)
+      }
+    }
   }
 
   render() {
@@ -45,12 +53,14 @@ class App extends Component {
 
 const mapStateToProps = (state) => ({
   movies: state.movies,
-  upcomingMovies: state.upcomingMovies
+  upcomingMovies: state.upcomingMovies,
+  user: state.user
 })
 
 const mapDispatchToProps = (dispatch) => ({
   setMovies: (movies) => dispatch(setMovies(movies)),
-  setUpcomingMovies: (upcomingMovies) => dispatch(setUpcomingMovies(upcomingMovies))
+  setUpcomingMovies: (upcomingMovies) => dispatch(setUpcomingMovies(upcomingMovies)),
+  setFavorites: (favorites) => dispatch(setFavorites(favorites))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
