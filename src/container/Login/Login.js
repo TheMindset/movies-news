@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { createNewUser } from '../utils/apiCalls'
+import { createNewUser } from '../../Components/utils/apiCalls'
 import { setUser } from '../../actions'
 
 class Login extends Component {
