@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { createNewUser } from '../../Components/utils/apiCalls'
+import { createNewUser, loginUser } from '../../Components/utils/apiCalls'
 import { setUser } from '../../actions'
 
 class Login extends Component {
@@ -13,7 +13,8 @@ class Login extends Component {
       email: '',
       password: '',
       isLogged: false,
-      loginError: ''
+      error: '',
+      loginError: false
     }
   }
 
@@ -24,6 +25,11 @@ class Login extends Component {
 
   handleSubmit = async (event) => {
     event.preventDefault()
+    event.stopPropagation()
+    await this.createUser()
+  }
+
+  createUser = async () => {
     const { name, email, password } = this.state
 
     const user = {
@@ -43,8 +49,33 @@ class Login extends Component {
     }
   }
 
+  logIn = async () => {
+    const { email, password } = this.props
+    try {
+      const { setUser } = this.props
+
+      const user = { email, password }
+      const currentUser = await loginUser(user)
+      await setUser(user)
+      this.setState({ isLogged: true })
+    } catch (error){
+      this.setState({ error: error.message, loginError: true})
+    }
+  }
+
   render() {
-    if(this.state.isLogged) {
+    const { 
+      isLogged, 
+      error, 
+      loginError, 
+      name, 
+      email, 
+      password 
+    } = this.state
+
+    let errClass = loginError ? 'error' : ''
+
+    if(isLogged) {
       return <Redirect to='/' />
     }
 
@@ -55,25 +86,33 @@ class Login extends Component {
           <input 
             placeholder='User'
             name='name'
-            value={ this.state.name }
+            maxLength='15'
+            required
+            value={name}
             onChange={ this.handleChange }
           />
 
           <input 
             placeholder='email'
+            className={errClass}
             name='email'
-            value={ this.state.email }
+            required
+            value={email}
             onChange={ this.handleChange }
           />
 
           <input 
             placeholder='password'
+            className={errClass}
             name='password'
-            value={ this.state.password }
+            maxLength='12'
+            required
+            value={password}
             onChange={ this.handleChange }
           />
-
-          <button type='submit' className='submit-btn' >Login</button>
+          <button type='submit' id='create-new-user'className='submit-btn' >Create New Account</button>
+          <button type='submit' id='login' className='submit-btn' onClick={this.login}>Login</button>
+          {error && <h3 className='error-login'>{error}</h3>}
         </form>
       </div>
     )
