@@ -66,16 +66,20 @@ export const loginUser = async (user) => {
 }
 
 export const getUserFavorites = async (userID) => {
-  const url = `http://localhost:3001/api/v1/users/${userID}/movieFavorites`
+  const url = `http://localhost:3001/api/v1/users/${userID}/moviefavorites`
 
   const response = await fetch(url)
-  const data = response.json
+  if (!response.ok) {
+    throw Error('Something goes wrong! Unable to get favorites')
+  }
+  const data = await response.json()
 
   return data.favorites
 }
 
 export const postFavorite = async (userID, movie) => {
-  const url = `http://localhost:3001/api/v1/users/${userID}/movieFavorites`
+  console.log(movie)
+  const url = `http://localhost:3001/api/v1/users/${userID}/moviefavorites`
 
   const options = {
     method: 'POST',
@@ -92,7 +96,7 @@ export const postFavorite = async (userID, movie) => {
 }
 
 export const deleteFavorite = async (userID, movie_id) => {
-  const url = `http://localhost:3001/api/v1/users/${userID}/movieFavorites/${movie_id}`
+  const url = `http://localhost:3001/api/v1/users/${userID}/moviefavorites/${movie_id}`
 
   const options = {
     method: 'DELETE',

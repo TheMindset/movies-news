@@ -41,19 +41,20 @@ class App extends Component {
 
   toggleFavorites = (event, movie) => {
     event.preventDefault()
-    const { user ,favorites } = this.props
+    const { user, favorites } = this.props
     const userID = user.id
-    if (favorites.map(fav => fav.title).include(movie.title)) {
+    if (favorites.map((fav) => fav.title).includes(movie.title)) {
       this.removeFavorite(userID, movie.movie_id)
-    } else
-    this.addFavorite(userID, movie)
+    } else {
+      this.addFavorite(userID, movie)
+    }
   }
 
 
-  removeFavorite = async (userID, movie_id) => {
+  removeFavorite = async (userID, movieId) => {
     const { setFavorites } = this.props
     try {
-      await deleteFavorite(userID, movie_id)
+      await deleteFavorite(userID, movieId)
       const updateFavorites = await getUserFavorites(userID)
       setFavorites(updateFavorites)
     } catch (error) {
@@ -66,6 +67,7 @@ class App extends Component {
     try {
       await postFavorite(userID, movie)
       const currentFavorites = await getUserFavorites(userID)
+      console.log(currentFavorites)
       setFavorites(currentFavorites)
     } catch(error) {
       console.log(error.message)
@@ -74,6 +76,7 @@ class App extends Component {
 
   render() {
     const { movies, upcomingMovies, favorites } = this.props
+
     return (
       <div className="App">
         <Route exact path='/login' render={ () => <Login /> } />
@@ -81,7 +84,7 @@ class App extends Component {
         <Route exact path='/' render={ () => <Main  toggleFavorites={this.toggleFavorites} /> } />
         <Route exact path='/favorites' render={ () => <Favorites movies={favorites} toggleFavorites={this.toggleFavorites} /> } />
         <Route exact path='/movie/:movie_id' render={ ({ match }) => {
-          const allMovies = [...movies, ...upcomingMovies]
+          const allMovies = [...movies, ...upcomingMovies, ...favorites]
           const currentMovies = allMovies.find(movie => movie.movie_id === parseInt(match.params.movie_id))
           return <MoviePage {...currentMovies}/>
         } } />
@@ -95,7 +98,8 @@ class App extends Component {
 const mapStateToProps = (state) => ({
   movies: state.movies,
   upcomingMovies: state.upcomingMovies,
-  user: state.user
+  user: state.user,
+  favorites: state.favorites
 })
 
 const mapDispatchToProps = (dispatch) => ({

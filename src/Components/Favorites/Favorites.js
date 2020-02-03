@@ -4,7 +4,7 @@ import MovieCard from '../MovieCard/MovieCard'
 import { Link } from 'react-router-dom'
 
 
-const Favorites = ({user, movie, toggleFavorites}) => {
+const Favorites = ({user, movies, toggleFavorites}) => {
   if (!user.name) {
     return (
       <div className='favorites'>
@@ -15,8 +15,8 @@ const Favorites = ({user, movie, toggleFavorites}) => {
     )
   }
 
-  if (movie.length > 0 && user.name) {
-    const favsList = movie.map(movie => (
+  if (movies.length > 0 && user.name) {
+    const favsList = movies.map(movie => (
       <MovieCard movie={movie} toggleFavorites={toggleFavorites} />
     ))
 

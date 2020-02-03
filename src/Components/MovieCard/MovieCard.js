@@ -11,7 +11,9 @@ const MovieCard = ({ movie, toggleFavorites }) => {
         <img src={star} 
           className='card-favorite-image' 
           alt='star indicate if the movie is favorite or not' 
-          onClick={ (event) => toggleFavorites(event, movie) }
+          onClick={ (event) =>  {
+            toggleFavorites(event, movie) 
+          }}
         />
 
         <img className='card-image' 
