@@ -73,3 +73,36 @@ export const getUserFavorites = async (userID) => {
 
   return data.favorites
 }
+
+export const postFavorite = async (userID, movie) => {
+  const url = `http://localhost:3001/api/v1/users/${userID}/movieFavorites`
+
+  const options = {
+    method: 'POST',
+    body: JSON.stringify(movie),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }
+
+  const response = await fetch(url, options)
+  if (!response.ok) {
+    throw Error('Something happen! Could not add favorite movie')
+  }
+}
+
+export const deleteFavorite = async (userID, movie_id) => {
+  const url = `http://localhost:3001/api/v1/users/${userID}/movieFavorites/${movie_id}`
+
+  const options = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }
+
+  const response = await fetch(url, options)
+  if (!response.ok) {
+    throw Error('Something happen! Could not remove favorite movie')
+  }
+}
