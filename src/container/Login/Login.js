@@ -50,14 +50,14 @@ class Login extends Component {
   }
 
   logIn = async () => {
-    const { email, password } = this.props
+    const { email, password } = this.state
     const user = { email, password }
     const { setUser } = this.props
 
     try {
       const currentUser = await loginUser(user)
       const userFavorites = await getUserFavorites(currentUser.id)
-      await setUser(user)
+      await setUser(currentUser)
       await setFavorites(userFavorites)
       this.setState({ isLogged: true })
     } catch (error){
@@ -113,7 +113,7 @@ class Login extends Component {
             onChange={ this.handleChange }
           />
           <button type='submit' id='create-new-user'className='submit-btn' >Create New Account</button>
-          <button type='submit' id='login' className='submit-btn' onClick={this.login}>Login</button>
+          <button type='button' id='login' className='submit-btn' onClick={this.logIn}>Login</button>
           {error && <h3 className='error-login'>{error}</h3>}
         </form>
       </div>
