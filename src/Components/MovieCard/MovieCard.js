@@ -3,14 +3,22 @@ import { Link } from 'react-router-dom'
 import star from '../../images/red-star.svg'
 
 
-const MovieCard = ({movie}) => {
+const MovieCard = ({ movie, toggleFavorites }) => {
   const id = movie.movie_id
   return (
     <Link to={`/movie/${id}`}>
       <div className='movie' movie_id={movie.movie_id}>
-        <img src={star} className='card-favorite-image' alt='star indicate if the movie is favorite or not' />
+        <img src={star} 
+          className='card-favorite-image' 
+          alt='star indicate if the movie is favorite or not' 
+          onClick={ (event) => toggleFavorites(event, movie) }
+        />
 
-        <img className='card-image' alt="movie poster" src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`} />
+        <img className='card-image' 
+          alt="movie poster" 
+          src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`} 
+        />
+
         <div className='card-header'>
           <p>
             {movie.title}

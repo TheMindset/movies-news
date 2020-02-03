@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Route } from 'react-router-dom'
-import { getMovies, getUpcomingMovies, getUserFavorites} from '../../Components/utils/apiCalls'
+import { getMovies, getUpcomingMovies, getUserFavorites, deleteFavorite, postFavorite} from '../../Components/utils/apiCalls'
 import { setMovies, setUpcomingMovies, setFavorites } from '../../actions'
 import Main from '../../Components/Main/Main'
 import Nav from '../../Components/Nav/Nav'
@@ -38,12 +38,37 @@ class App extends Component {
   }
 
 
-  toggleFavorites = (movie) => {
-    const { favorites } = this.props
+  toggleFavorites = (event, movie) => {
+    event.preventDefault()
+    const { user ,favorites } = this.props
+    const userID = user.id
     if (favorites.map(fav => fav.title).include(movie.title)) {
-      this.removeFavorite()
+      this.removeFavorite(userID, movie.movie_id)
     } else
-    this.addFavorite()
+    this.addFavorite(userID, movie)
+  }
+
+
+  removeFavorite = async (userID, movie_id) => {
+    const { setFavorites } = this.props
+    try {
+      await deleteFavorite(userID, movie_id)
+      const updateFavorites = await getUserFavorites(userID)
+      setFavorites(updateFavorites)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
+  addFavorite = async (userID, movie) => {
+    const { setFavorites } = this.props
+    try {
+      await postFavorite(userID, movie)
+      const currentFavorites = await getUserFavorites(userID)
+      setFavorites(currentFavorites)
+    } catch(error) {
+      console.log(error.message)
+    }
   }
 
   render() {
@@ -52,8 +77,8 @@ class App extends Component {
       <div className="App">
         <Route exact path='/login' render={ () => <Login /> } />
         <Route path='/' render={ () => <Nav /> } />
-        <Route exact path='/' render={ () => <Main /> } />
-        <Route exact path='/favorites' render={ () => <MovieList movies={favorites} /> } />
+        <Route exact path='/' render={ () => <Main  toggleFavorites={this.toggleFavorites} /> } />
+        <Route exact path='/favorites' render={ () => <MovieList movies={favorites} toggleFavorites={this.toggleFavorites} /> } />
         <Route exact path='/movie/:movie_id' render={ ({ match }) => {
           const allMovies = [...movies, ...upcomingMovies]
           const currentMovies = allMovies.find(movie => movie.movie_id === parseInt(match.params.movie_id))
