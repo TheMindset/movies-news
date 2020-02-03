@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import MovieList from '../MovieList/MovieList'
+import MovieList from '../../Components/MovieList/MovieList'
 
 
 const Main = ({movies, upcomingMovies, toggleFavorites}) => {
