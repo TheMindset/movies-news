@@ -1,7 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
+import avatar from '../../images/avatar.svg'
 
-const Nav = () => {
+const Nav = ({ user }) => {
   return (
     <header>
       <h1 className='header-logo'>Movie News</h1>
@@ -18,12 +20,21 @@ const Nav = () => {
         <NavLink exact to='/favorites' className='nav-link' activeClassName='selectedLink'>
           Favorites
         </NavLink>
-        <NavLink exact to='/login' className='nav-link' activeClassName='selectedLink'>
-          User Login
-        </NavLink>
+      </div>
+      <div className='header-user-menu'>
+        <div className='inner'>
+          <h3 className='header-user-name'>
+            { user.name ? (<>{user.name} <a href='/login'>LogOut</a> </>) : (<a href='/login'>Login</a> ) }
+          </h3>
+          <img className='user-avatar' alt='User avatar' src={avatar} />
+        </div>
       </div>
     </header>
   )
 }
 
-export default Nav
+const mapStateToProps = (state) => ({
+  user: state.user
+})
+
+export default  connect(mapStateToProps)(Nav)
