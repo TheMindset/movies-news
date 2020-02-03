@@ -7,6 +7,7 @@ import Main from '../../Components/Main/Main'
 import Nav from '../../Components/Nav/Nav'
 import Login from '../Login/Login'
 import MovieList from '../../Components/MovieList/MovieList';
+import MoviePage from '../../Components/MoviePage/MoviePage'
 
 class App extends Component {
 
@@ -53,11 +54,15 @@ class App extends Component {
         <Route path='/' render={ () => <Nav /> } />
         <Route exact path='/' render={ () => <Main /> } />
         <Route exact path='/favorites' render={ () => <MovieList movies={favorites} /> } />
+        <Route exact path='/movie/:movie_id' render={ ({ match }) => {
+          const allMovies = [...movies, ...upcomingMovies]
+          const currentMovies = allMovies.find(movie => movie.movie_id === parseInt(match.params.movie_id))
+          return <MoviePage {...currentMovies}/>
+        } } />
         <Route exact path='box-office' render={ () => <MovieList movies={movies}/> } />
         <Route exact path='upcoming' render={ () => <MovieList movies={upcomingMovies}/> } />
       </div>
-    );
-  
+    )
   }
 }
 

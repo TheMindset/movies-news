@@ -3,8 +3,17 @@ export const getMovies = async () => {
   
   const response = await fetch(url)
   const data = await response.json()
-  return data.results
+  return cleanMovieData(data.results)
 }
+
+const cleanMovieData = (data) => data.map(movie => ({
+  poster_path: movie.poster_path,
+  title: movie.title,
+  release_date: movie.release_date,
+  vote_average: movie.vote_average,
+  overview: movie.overview,
+  movie_id: movie.id
+}))
 
 export const createNewUser = async (user) => {
   const url = 'http://localhost:3001/api/v1/users'
