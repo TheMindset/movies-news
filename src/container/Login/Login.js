@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { createNewUser, loginUser } from '../../Components/utils/apiCalls'
-import { setUser } from '../../actions'
+import { createNewUser, loginUser, getUserFavorites } from '../../Components/utils/apiCalls'
+import { setUser, setFavorites } from '../../actions'
 
 class Login extends Component {
   constructor() {
@@ -51,12 +51,14 @@ class Login extends Component {
 
   logIn = async () => {
     const { email, password } = this.props
-    try {
-      const { setUser } = this.props
+    const user = { email, password }
+    const { setUser } = this.props
 
-      const user = { email, password }
+    try {
       const currentUser = await loginUser(user)
+      const userFavorites = await getUserFavorites(currentUser.id)
       await setUser(user)
+      await setFavorites(userFavorites)
       this.setState({ isLogged: true })
     } catch (error){
       this.setState({ error: error.message, loginError: true})
@@ -120,7 +122,8 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  setUser: (user) => dispatch(setUser(user))
+  setUser: (user) => dispatch(setUser(user)),
+  setFavorites: (favorites) => dispatch(setFavorites(favorites))
 })
 
 export default connect(null, mapDispatchToProps)(Login)
