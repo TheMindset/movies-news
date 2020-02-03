@@ -38,7 +38,8 @@ class App extends Component {
 
 
   toggleFavorites = (movie) => {
-    if (this.props.favorites.map(fav => fav.title).include(movie.title)) {
+    const { favorites } = this.props
+    if (favorites.map(fav => fav.title).include(movie.title)) {
       this.removeFavorite()
     } else
     this.addFavorite()
