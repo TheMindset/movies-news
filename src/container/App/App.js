@@ -36,13 +36,22 @@ class App extends Component {
     }
   }
 
+
+  toggleFavorites = (movie) => {
+    if (this.props.favorites.map(fav => fav.title).include(movie.title)) {
+      this.removeFavorite()
+    } else
+    this.addFavorite()
+  }
+
   render() {
-    const { movies, upcomingMovies } = this.props
+    const { movies, upcomingMovies, favorites } = this.props
     return (
       <div className="App">
         <Route exact path='/login' render={ () => <Login /> } />
         <Route path='/' render={ () => <Nav /> } />
         <Route exact path='/' render={ () => <Main /> } />
+        <Route exact path='/favorites' render={ () => <MovieList movies={favorites} /> } />
         <Route exact path='box-office' render={ () => <MovieList movies={movies}/> } />
         <Route exact path='upcoming' render={ () => <MovieList movies={upcomingMovies}/> } />
       </div>
