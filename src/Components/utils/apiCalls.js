@@ -40,7 +40,7 @@ export const getUpcomingMovies = async () => {
   
   const response = await fetch(url)
   const data = await response.json()
-  return data.results
+  return cleanMovieData(data.results)
 }
 
 export const loginUser = async (user) => {

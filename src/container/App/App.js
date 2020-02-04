@@ -36,7 +36,6 @@ class App extends Component {
     }
 
     if(localStorage.getItem("user")) {
-      console.log(JSON.parse(localStorage.getItem("user")))
       const savedUser = JSON.parse(localStorage.getItem("user"))
       const { email, password } = savedUser
 
