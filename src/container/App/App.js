@@ -74,13 +74,17 @@ class App extends Component {
     }
   }
 
+  logOut = () => {
+    localStorage.clear()
+  }
+
   render() {
     const { movies, upcomingMovies, favorites } = this.props
 
     return (
       <div className="App">
         <Route exact path='/login' render={ () => <Login /> } />
-        <Route path='/' render={ () => <Nav /> } />
+        <Route path='/' render={ () => <Nav logOut={this.logOut} /> } />
         <Route exact path='/' render={ () => <Main  toggleFavorites={this.toggleFavorites} /> } />
         <Route exact path='/favorites' render={ () => <Favorites movies={favorites} toggleFavorites={this.toggleFavorites} /> } />
         <Route exact path='/movie/:movie_id' render={ ({ match }) => {

@@ -1,18 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { NavLink, Link } from 'react-router-dom'
-import avatar from '../../images/avatar.svg'
+import { NavLink } from 'react-router-dom'
 
-const Nav = ({ user }) => {
+const Nav = ({ user, logOut }) => {
   return (
-    <header>
-      <Link to='/'>
-        <h1 className='header-logo'>Movie News</h1>
-      </Link>
+    <header className='header-bg'>
+      <h1 className='header-title'>Movie News</h1>
       <div className='header-nav'>
-        <NavLink exact to='/' className='nav-link' activeClassName='selectedLink'>
-          Home
-        </NavLink>
+        { 
+          user.name ? <span className='user-name'> Welcome {user.name} </span> : '' 
+        }
+
         <NavLink exact to='/box-offices' className='nav-link' activeClassName='selectedLink'>
           Box Offices
         </NavLink>
@@ -22,14 +20,11 @@ const Nav = ({ user }) => {
         <NavLink exact to='/favorites' className='nav-link' activeClassName='selectedLink'>
           Favorites
         </NavLink>
-      </div>
-      <div className='header-user-menu'>
-        <div className='inner'>
-          <h3 className='header-user-name'>
-            { user.name ? (<>{user.name} <a href='/login'>LogOut</a> </>) : (<a href='/login'>Login</a> ) }
-          </h3>
-          <img className='user-avatar' alt='User avatar' src={avatar} />
-        </div>
+        { 
+          user.name ? 
+          <button className='nav-link' id='logout-btn' onClick={logOut}>LogOut</button> : 
+          <NavLink className='nav-link' to='/login'>User Login</NavLink>
+        }
       </div>
     </header>
   )
