@@ -16,7 +16,7 @@ const cleanMovieData = (data) => data.map(movie => ({
 }))
 
 export const createNewUser = async (user) => {
-  const url = 'http://localhost:3001/api/v1/users'
+  const url = `${process.env.REACT_APP_MOVIE_NEWS_BACKEND_URL}/api/v1/users`
   const options = {
     method: 'POST',
     body: JSON.stringify(user),
@@ -44,8 +44,7 @@ export const getUpcomingMovies = async () => {
 }
 
 export const loginUser = async (user) => {
-  const url = 'http://localhost:3001/api/v1/login'
-
+  const url = `${process.env.REACT_APP_MOVIE_NEWS_BACKEND_URL}/api/v1/login`
   const options = {
     method: 'POST',
     body: JSON.stringify(user),
@@ -66,7 +65,7 @@ export const loginUser = async (user) => {
 }
 
 export const getUserFavorites = async (userID) => {
-  const url = `http://localhost:3001/api/v1/users/${userID}/moviefavorites`
+  const url = `${process.env.REACT_APP_MOVIE_NEWS_BACKEND_URL}/api/v1/users/${userID}/moviefavorites`
 
   const response = await fetch(url)
   if (!response.ok) {
@@ -79,7 +78,7 @@ export const getUserFavorites = async (userID) => {
 
 export const postFavorite = async (userID, movie) => {
   console.log(movie)
-  const url = `http://localhost:3001/api/v1/users/${userID}/moviefavorites`
+  const url = `${process.env.REACT_APP_MOVIE_NEWS_BACKEND_URL}/api/v1/users/${userID}/moviefavorites`
 
   const options = {
     method: 'POST',
@@ -96,7 +95,7 @@ export const postFavorite = async (userID, movie) => {
 }
 
 export const deleteFavorite = async (userID, movie_id) => {
-  const url = `http://localhost:3001/api/v1/users/${userID}/moviefavorites/${movie_id}`
+  const url = `${process.env.REACT_APP_MOVIE_NEWS_BACKEND_URL}/api/v1/users/${userID}/moviefavorites/${movie_id}`
 
   const options = {
     method: 'DELETE',
