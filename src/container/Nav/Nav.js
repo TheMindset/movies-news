@@ -11,6 +11,9 @@ const Nav = ({ user, logOut }) => {
           user.name ? <span className='user-name'> Welcome {user.name} </span> : '' 
         }
 
+        <NavLink exact to='/' className='nav-link' activeClassName='selectedLink'>
+          Home
+        </NavLink>
         <NavLink exact to='/box-offices' className='nav-link' activeClassName='selectedLink'>
           Box Offices
         </NavLink>

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Route } from 'react-router-dom'
-import { getMovies, getUpcomingMovies, getUserFavorites, deleteFavorite, postFavorite} from '../../Components/utils/apiCalls'
-import { setMovies, setUpcomingMovies, setFavorites } from '../../actions'
+import { getMovies, getUpcomingMovies, getUserFavorites, deleteFavorite, postFavorite, loginUser} from '../../Components/utils/apiCalls'
+import { setMovies, setUpcomingMovies, setFavorites, setUser } from '../../actions'
 import Main from '../Main/Main'
 import Nav from '../Nav/Nav'
 import Login from '../Login/Login'
@@ -13,7 +13,14 @@ import Favorites from '../Favorites/Favorites'
 class App extends Component {
 
   async componentDidMount() {
-    const { setMovies, setUpcomingMovies, setFavorites, user } = this.props
+    const { 
+      setMovies, 
+      setUpcomingMovies, 
+      setFavorites,
+      user, 
+      setUser 
+    } = this.props
+
     try {
       const data = await getMovies()
       setMovies(data)
@@ -28,6 +35,22 @@ class App extends Component {
       console.log(error.message)
     }
 
+    if(localStorage.getItem("user")) {
+      console.log(JSON.parse(localStorage.getItem("user")))
+      const savedUser = JSON.parse(localStorage.getItem("user"))
+      const { email, password } = savedUser
+
+      try {
+        const userParams = { email, password }
+        const currentUser = await loginUser(userParams)
+        const userFavorites = await getUserFavorites(currentUser.id)
+        setFavorites(userFavorites)
+        setUser(currentUser)
+      } catch (error) {
+        console.log(error.message)
+      }
+    }
+
     if(user.name) {
       try {
         const userFavs = await getUserFavorites(user.id)
@@ -37,7 +60,6 @@ class App extends Component {
       }
     }
   }
-
 
   toggleFavorites = (event, movie) => {
     event.preventDefault()
@@ -49,7 +71,6 @@ class App extends Component {
       this.addFavorite(userID, movie)
     }
   }
-
 
   removeFavorite = async (userID, movieId) => {
     const { setFavorites } = this.props
@@ -76,6 +97,7 @@ class App extends Component {
 
   logOut = () => {
     localStorage.clear()
+    this.props.setUser({})
   }
 
   render() {
@@ -109,7 +131,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   setMovies: (movies) => dispatch(setMovies(movies)),
   setUpcomingMovies: (upcomingMovies) => dispatch(setUpcomingMovies(upcomingMovies)),
-  setFavorites: (favorites) => dispatch(setFavorites(favorites))
+  setFavorites: (favorites) => dispatch(setFavorites(favorites)),
+  setUser: (user) => dispatch(setUser(user))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

@@ -42,6 +42,7 @@ class Login extends Component {
       const { setUser } = this.props
 
       const newUser = await createNewUser(user)
+      this.saveToStorage({ ...newUser, password: user.password })
       await setUser(newUser)
       this.setState({ isLogged: true })
     } catch(error) {
@@ -57,12 +58,17 @@ class Login extends Component {
     try {
       const currentUser = await loginUser(user)
       const userFavorites = await getUserFavorites(currentUser.id)
+      this.saveToStorage({ ...currentUser, password: user.password })
       await setUser(currentUser)
       await setFavorites(userFavorites)
       this.setState({ isLogged: true })
     } catch (error){
       this.setState({ error: error.message, loginError: true})
     }
+  }
+
+  saveToStorage = (user) => {
+    localStorage.setItem('user', JSON.stringify(user))
   }
 
   render() {
@@ -78,7 +84,7 @@ class Login extends Component {
     let errClass = loginError ? 'error' : ''
 
     if(isLogged) {
-      return <Redirect to='/' />
+      return <Redirect to='/'/>
     }
 
     return (
