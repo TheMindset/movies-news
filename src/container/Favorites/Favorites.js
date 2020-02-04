@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import MovieCard from '../MovieCard/MovieCard'
+import MovieCard from '../../Components/MovieCard/MovieCard'
 import { Link } from 'react-router-dom'
 
 
