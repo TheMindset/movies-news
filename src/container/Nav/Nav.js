@@ -1,12 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import avatar from '../../images/avatar.svg'
 
 const Nav = ({ user }) => {
   return (
     <header>
-      <h1 className='header-logo'>Movie News</h1>
+      <Link to='/'>
+        <h1 className='header-logo'>Movie News</h1>
+      </Link>
       <div className='header-nav'>
         <NavLink exact to='/' className='nav-link' activeClassName='selectedLink'>
           Home

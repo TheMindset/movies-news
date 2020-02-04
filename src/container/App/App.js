@@ -4,11 +4,11 @@ import { Route } from 'react-router-dom'
 import { getMovies, getUpcomingMovies, getUserFavorites, deleteFavorite, postFavorite} from '../../Components/utils/apiCalls'
 import { setMovies, setUpcomingMovies, setFavorites } from '../../actions'
 import Main from '../Main/Main'
-import Nav from '../../Components/Nav/Nav'
+import Nav from '../Nav/Nav'
 import Login from '../Login/Login'
 import MovieList from '../../Components/MovieList/MovieList'
 import MoviePage from '../../Components/MoviePage/MoviePage'
-import Favorites from '../../Components/Favorites/Favorites'
+import Favorites from '../Favorites/Favorites'
 
 class App extends Component {
 
