@@ -113,8 +113,8 @@ class App extends Component {
           const currentMovies = allMovies.find(movie => movie.movie_id === parseInt(match.params.movie_id))
           return <MoviePage {...currentMovies}/>
         } } />
-        <Route exact path='box-office' render={ () => <MovieList movies={movies}/> } />
-        <Route exact path='upcoming' render={ () => <MovieList movies={upcomingMovies}/> } />
+        <Route exact path='/box-offices' render={ () => <MovieList movies={movies} toggleFavorites={this.toggleFavorites} /> } />
+        <Route exact path='/coming-soon' render={ () => <MovieList movies={upcomingMovies} toggleFavorites={this.toggleFavorites} /> } />
       </div>
     )
   }
