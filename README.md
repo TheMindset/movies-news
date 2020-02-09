@@ -2,7 +2,7 @@
 
 ## About 
 
-If you are currious about what movies are currently out in theaters or lovers of the 7th arts. The _Movie News_ application are made for you.
+If you are curious about what movies are currently out in theaters or lovers of the 7th arts. The _Movie News_ application are made for you.
 
 _Movies News_ uses the [MOVIE DB API](https://www.themoviedb.org/) to provide the user a database of popular films currently in theaters or coming soon. Designed to practice the usage of Redux store. The application's components and Redux elements (actions & reducers) are fully tested using the Jest testing suite.
 
