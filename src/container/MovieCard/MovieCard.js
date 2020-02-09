@@ -1,10 +1,11 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import star from '../../images/red-star.svg'
 import favStar from '../../images/fav-star.svg'
 
-const MovieCard = ({ movie, toggleFavorites, favorites }) => {
+export const MovieCard = ({ movie, toggleFavorites, favorites }) => {
   const isFavorite = favorites.map((favMovie) => favMovie.title).includes(movie.title)
   const favImg = isFavorite ? favStar : star;
   const favClass = isFavorite ? 'favorite': ''
@@ -39,8 +40,14 @@ const MovieCard = ({ movie, toggleFavorites, favorites }) => {
   )
 }
 
-const mapStateToProps = (state) => ({
+export const mapStateToProps = (state) => ({
   favorites: state.favorites
 })
 
-export default  connect(mapStateToProps)(MovieCard)
+export default connect(mapStateToProps)(MovieCard)
+
+MovieCard.propTypes = {
+  movie: PropTypes.object.isRequired,
+  favorites: PropTypes.array.isRequired,
+  toggleFavorites: PropTypes.func.isRequired
+}
