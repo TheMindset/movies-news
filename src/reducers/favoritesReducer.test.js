@@ -27,13 +27,8 @@ describe('favoritesReducer', () => {
         movie_id: 454626
       }
     ]
-
-    const action = {
-      type: 'SET_FAVORITES',
-      favorites: expected
-    }
     
-    const result = favoritesReducer([], action)
+    const result = favoritesReducer([], setFavorites(expected))
   
     expect(result).toEqual(expected)
   })
