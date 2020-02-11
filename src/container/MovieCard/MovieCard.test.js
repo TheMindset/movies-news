@@ -48,3 +48,27 @@ describe('MovieCard', () => {
   })
   
 })
+
+describe('MovieCard Redux', () => {
+  const mockFavorites = [
+    {
+      poster_path: "/iZf0KyrE25z1sage4SYFLCCrMi9.jpg",
+      title : "1917",
+      release_date : "2019-12-10",
+      vote_average : 8.1,
+      overview : "At the height of the First World War, two young British soldiers, Schofield and Blake are given a seemingly impossible mission. In a race against time, they must cross enemy territory and deliver a message that will stop a deadly attack on hundreds of soldiers—Blake's own brother among them.",
+      movie_id : 530915
+    }
+  ]
+
+  const mockState = {
+    favorites: mockFavorites
+  }
+
+  const expectedState = {
+    favorites: mockState.favorites
+  }
+
+  const mappedProps = mapStateToProps(mockState)
+  expect(mappedProps).toEqual(expectedState)
+})
