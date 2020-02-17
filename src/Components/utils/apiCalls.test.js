@@ -35,11 +35,4 @@ describe('getMovies', () => {
     expect(API.getMovies()).resolves.toEqual(mockResponse)
   })
 
-  // it('should return an error if the server is down', () => {
-  //   window.fetch = jest.fn().mockImplementation(() => {
-  //     return Promise.reject(Error('Unable to fetch'))
-  //   })
-
-  //   expect(getFilms()).rejects.toEqual(Error('Unable to fetch'))
-  // })
 })
